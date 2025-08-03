@@ -43,6 +43,8 @@ builder.Services.AddSingleton<AES>();
 
 builder.Services.AddSingleton<SignupQuery>();
 
+builder.Services.AddSingleton<LoginQuery>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,5 +64,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseMiddleware<SignupMiddleware>();
+app.UseMiddleware<LoginMiddleware>();
 
 app.Run();
