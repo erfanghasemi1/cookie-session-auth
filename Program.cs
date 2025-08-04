@@ -25,16 +25,20 @@ builder.Services.AddSession(options =>
 
 // Register cookie
 builder.Services.AddAuthentication("MyCookieAuth")
-    .AddCookie("MycookieAuth" , options =>
+    .AddCookie("MyCookieAuth" , options =>
     {
         options.Cookie.Name = "AuthCookie";
-        options.LoginPath = "/login";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.SlidingExpiration = true;
         options.Cookie.MaxAge = TimeSpan.FromHours(30);
         options.Cookie.HttpOnly = true;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.Cookie.SameSite = SameSiteMode.Strict;
+        options.Events.OnRedirectToLogin = context =>
+        {
+            context.Response.StatusCode = 401;
+            return Task.CompletedTask;
+        };  
     });
 
 builder.Services.AddAuthorization();

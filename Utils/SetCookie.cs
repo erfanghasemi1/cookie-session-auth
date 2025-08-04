@@ -17,7 +17,7 @@ namespace Cookie_Session.Utils
 
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
-            await context.SignInAsync("MycookieAuth", principal);
+            await context.SignInAsync("MyCookieAuth", principal);
         }
     }
 }
